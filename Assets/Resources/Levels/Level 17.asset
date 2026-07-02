@@ -181,7 +181,7 @@ MonoBehaviour:
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
-    - jamFlavor: 0
+    - jamFlavor: 4
       customLetter: M
       simultaneousToast: 0
       toastsNeeded: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
-    - jamFlavor: 0
+    - jamFlavor: 4
       customLetter: M
       simultaneousToast: 0
       toastsNeeded: 0

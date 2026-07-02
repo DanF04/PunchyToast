@@ -136,19 +136,19 @@ MonoBehaviour:
   - allowBottomRow: 1
     allowTopRow: 1
     clientsInWave:
-    - jamFlavor: 0
+    - jamFlavor: 1
       customLetter: 
       simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 1
       slapString: ES
-    - jamFlavor: 0
+    - jamFlavor: 2
       customLetter: 
       simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 1
       slapString: TA
-    - jamFlavor: 0
+    - jamFlavor: 3
       customLetter: 
       simultaneousToast: 0
       toastsNeeded: 0
