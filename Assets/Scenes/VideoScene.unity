@@ -151,13 +151,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad0398d39657f24dbe71614d48dd674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1758862817}
   visualizer: {fileID: 1758862818}
   mouthBone: {fileID: 953927536}
   bobbingBone: {fileID: 179917797}
+  useSilenceThreshold: 1
+  popUpDistance: 0.5
+  duration: 0.5
+  silenceThresholdTime: 2
   bandIndex: 0
   noiseThreshold: 0.1
   sensitivity: 1
-  interpolationSpeed: 40
+  interpolationSpeed: 20
   closedRotation: {x: 0, y: 0, z: 0}
   openRotation: {x: 35, y: 0, z: 0}
   bobOffset: {x: 0, y: 0.05, z: 0}
@@ -315,11 +320,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b71efa7e69ac4a9409da687eee6e9400, type: 3}
+  m_Resource: {fileID: 8300000, guid: d2bb16e5c9421394fb907fe327ad2623, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -522,11 +527,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b71efa7e69ac4a9409da687eee6e9400, type: 3}
+  m_Resource: {fileID: 8300000, guid: d2bb16e5c9421394fb907fe327ad2623, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -839,13 +844,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad0398d39657f24dbe71614d48dd674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1261574938}
   visualizer: {fileID: 1261574939}
   mouthBone: {fileID: 1306157168}
   bobbingBone: {fileID: 1476462128}
+  useSilenceThreshold: 1
+  popUpDistance: 0.5
+  duration: 0.5
+  silenceThresholdTime: 2
   bandIndex: 0
   noiseThreshold: 0.1
   sensitivity: 1
-  interpolationSpeed: 40
+  interpolationSpeed: 20
   closedRotation: {x: 0, y: 0, z: 0}
   openRotation: {x: 35, y: 0, z: 0}
   bobOffset: {x: 0, y: 0.05, z: 0}
@@ -923,11 +933,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b71efa7e69ac4a9409da687eee6e9400, type: 3}
+  m_Resource: {fileID: 8300000, guid: d2bb16e5c9421394fb907fe327ad2623, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3684,13 +3694,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad0398d39657f24dbe71614d48dd674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 760559920}
   visualizer: {fileID: 760559921}
   mouthBone: {fileID: 1070422969717267858}
   bobbingBone: {fileID: 9063235445765266882}
+  useSilenceThreshold: 1
+  popUpDistance: 0.5
+  duration: 0.5
+  silenceThresholdTime: 2
   bandIndex: 0
   noiseThreshold: 0.1
   sensitivity: 1
-  interpolationSpeed: 40
+  interpolationSpeed: 20
   closedRotation: {x: 0, y: 0, z: 0}
   openRotation: {x: 35, y: 0, z: 0}
   bobOffset: {x: 0, y: 0.05, z: 0}
