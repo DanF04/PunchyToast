@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class Toaster : MonoBehaviour
 {
+
+    [Header("Gathered Toast Tracking")]
+    [Tooltip("Live view of total correct toasts gathered across sessions.")]
+    public int totalToastsPunched;
+
     public GameObject toastPrefab;
     public Transform ejectPoint;
     public static Toaster Instance;
@@ -147,12 +152,14 @@ public class Toaster : MonoBehaviour
     {
         if (Instance == null) Instance = this;
 
+        // Load initial gathered count from PlayerPrefs
+        totalToastsPunched = PlayerPrefs.GetInt("ToastsPunched", 0);
+
         if (comboTextParent != null)
         {
             originalParentScale = comboTextParent.localScale;
             originalParentPos = comboTextParent.localPosition;
         }
-
 
         UpdateComboUI();
     }
@@ -170,6 +177,9 @@ public class Toaster : MonoBehaviour
 
     void Update()
     {
+        // Live update the value in Inspector from PlayerPrefs
+        totalToastsPunched = PlayerPrefs.GetInt("ToastsPunched", 0);
+
         // Use the override if it exists, otherwise use the normal level time
         float currentCooldown = nextLaunchOverride ?? timeToLaunchToast;
         if (Time.time - lastLaunchTime >= currentCooldown && ClientManager.Instance.areThereClients)
@@ -180,6 +190,32 @@ public class Toaster : MonoBehaviour
                 LaunchToast();
             }
         }
+    }
+
+    public void IncrementToastsPunched()
+    {
+        int current = PlayerPrefs.GetInt("ToastsPunched", 0) + 1;
+        PlayerPrefs.SetInt("ToastsPunched", current);
+        PlayerPrefs.Save();
+        totalToastsPunched = current;
+
+        switch(totalToastsPunched)
+        {
+            case 1:
+                // ACHIEVEMENT TP_ONETOAST
+                break;
+            case 10:
+                // TP_TENTOAST
+                break;
+            case 100:
+                // TP_HUNDREDTOAST
+                break;
+            case 1000:
+                // TP_THOUSANDTOAST
+                break;
+        }
+
+
     }
 
     private void UpdateComboUI()

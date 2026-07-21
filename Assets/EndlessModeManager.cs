@@ -36,6 +36,8 @@ public class EndlessModeManager : MonoBehaviour
     public TextMeshProUGUI timeSurvivedUnderlay;
     public TextMeshProUGUI highestCombo;
     public TextMeshProUGUI highestComboUnderlay;
+    public TextMeshProUGUI finalScore;
+    public TextMeshProUGUI finalScoreUnderlay;
 
     private Dictionary<Transform, Vector3> originalScales = new Dictionary<Transform, Vector3>();
 
@@ -94,6 +96,7 @@ public class EndlessModeManager : MonoBehaviour
         ResetUIElement(clientsSatisfied.transform.parent);
         ResetUIElement(highestCombo.transform.parent);
         ResetUIElement(timeSurvived.transform.parent);
+        ResetUIElement(finalScore.transform.parent);
 
         clientsSatisfied.text = ": 0";
         clientsSatisfiedUnderlay.text = ": 0";
@@ -101,6 +104,8 @@ public class EndlessModeManager : MonoBehaviour
         highestComboUnderlay.text = ": 0";
         timeSurvived.text = ": 00m:00s";
         timeSurvivedUnderlay.text = ": 00m:00s";
+        finalScore.text = ": 0";
+        finalScoreUnderlay.text = ": 0";
 
         float currentPitch = 1.0f;
 
@@ -141,7 +146,31 @@ public class EndlessModeManager : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenTicks);
         }
 
-   
+        // --- PART D: Roll Final Score ---
+        yield return AnimateEntry(finalScore.transform.parent);
+        int finalScoreValue = clientsSatisfiedThisSession + Toaster.Instance.highestCombo;
+        for (int i = 0; i <= finalScoreValue; i++)
+        {
+            UpdateText(finalScore, finalScoreUnderlay, $": {i}");
+            PlayTick(ref currentPitch);
+            yield return new WaitForSeconds(timeBetweenTicks);
+        }
+
+
+        // TP_INFINITE
+
+        switch(finalScoreValue)
+        {
+            case 50:
+                //TP_INFINITEFIFTY
+                break;
+            case 100:
+                //TP_INFINITEHUNDRED
+                break;
+            case 200:
+                //TP_INFINITETWOHUNDRED
+                break;
+        }
 
 
     }
@@ -221,6 +250,7 @@ public class EndlessModeManager : MonoBehaviour
         CaptureScale(clientsSatisfied.transform.parent);
         CaptureScale(highestCombo.transform.parent);
         CaptureScale(timeSurvived.transform.parent);
+        CaptureScale(finalScore.transform.parent);
     }
 
     private void CaptureScale(Transform t)

@@ -536,6 +536,7 @@ public class ClientManager : MonoBehaviour
 
     private void SaveProgress(int stars, float time)
     {
+
         // Matches the string format in your LevelButton Initialize method
         string starKey = $"Level_{levelConfig.levelNumber}_Stars";
         string timeKey = $"Level_{levelConfig.levelNumber}_Time";
@@ -560,6 +561,37 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt(comboKey, Toaster.Instance.highestCombo);
             PlayerPrefs.Save();
         }
+
+        if(stars == 5)
+        {
+            // TP_FIRSTSTEPS
+        }
+
+        if (isBossFight)
+        {
+            // TP_BOSS
+        }
+
+        foreach(var jam in JamDecider.Instance.activeJams)
+        {
+           if(jam.flavor == JamFlavor.StrawberryJam)
+            {
+                // TP_STRAWBERRY
+                Debug.Log("Strawberry Jam used in this level!");
+            }
+           if(jam.flavor == JamFlavor.GrapeJam)
+            {
+                // TP_GRAPE
+                Debug.Log("Grape Jam used in this level!");
+            }
+           if(jam.flavor == JamFlavor.Butter)
+            {
+                // TP_CHOCOLATE
+                Debug.Log("Butter used in this level!");
+            }
+        }
+
+        LevelMenuManager.Instance.AreAllLevelsCompleted();
     }
 
     public void ResetLevelProgress(int levelNum)

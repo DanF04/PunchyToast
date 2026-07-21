@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using System.Collections;
 
 public class LevelMenuManager : MonoBehaviour
 {
+    // --- SINGLETON INSTANCE ---
+    public static LevelMenuManager Instance { get; private set; }
+
     [Header("Prefabs")]
     public GameObject pagePrefab; // A prefab with a Grid Layout Group (2x5)
     public GameObject levelButtonPrefab;
@@ -19,6 +22,13 @@ public class LevelMenuManager : MonoBehaviour
     public float slideDuration = 0.5f;
     public float slideAmount = 1000f; // Define this in the inspector (e.g., 1080 or 1920)
 
+    [Header("Level Completion Tracking")]
+    [Tooltip("Live view of total completed levels.")]
+    public int completedLevelsCount;
+
+    [Tooltip("Live view of total 5-star levels.")]
+    public int fiveStarLevelsCount; // NEW
+
     private List<LevelConfiguration> allLevels = new List<LevelConfiguration>();
     private int currentPage = 0;
     private int levelsPerPage = 10;
@@ -26,18 +36,37 @@ public class LevelMenuManager : MonoBehaviour
     private bool isTransitioning = false;
 
     private LevelButton lastPlayedLevel;
-
     private int lastPlayedLevelNumber = -1;
+
+    private void Awake()
+    {
+        // Set up the Singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
         LoadAllLevels();
+        UpdateCompletedLevelsCount();
+        UpdateFiveStarLevelsCount(); // Recount on start
+
+        AreAllLevelsCompleted(); // Check if all levels are completed and log the result
+        GetFiveStarLevelsCount(); // Check how many levels have 5 stars and log the result
         ShowPage(0, false);
     }
 
     private void OnEnable()
     {
         LoadAllLevels();
+        UpdateCompletedLevelsCount();
+        UpdateFiveStarLevelsCount(); // Recount on enable
         ShowPage(0, false);
     }
 
@@ -127,7 +156,7 @@ public class LevelMenuManager : MonoBehaviour
 
                 levelButton.Initialize(allLevels[dataIdx], gameObject.transform.parent.gameObject, this);
 
-                if(lastPlayedLevelNumber == allLevels[dataIdx].levelNumber)
+                if (lastPlayedLevelNumber == allLevels[dataIdx].levelNumber)
                 {
                     levelButton.SetLastPlayed(true);
                 }
@@ -140,7 +169,6 @@ public class LevelMenuManager : MonoBehaviour
         }
     }
 
-
     public void SetLastPlayedLevel(int levelNumber)
     {
         lastPlayedLevelNumber = levelNumber;
@@ -149,7 +177,7 @@ public class LevelMenuManager : MonoBehaviour
     public void StartNextLevel()
     {
         int nextLevel = lastPlayedLevelNumber + 1;
-        
+
         foreach (LevelConfiguration config in allLevels)
         {
             if (config.levelNumber == nextLevel)
@@ -208,5 +236,155 @@ public class LevelMenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculates and returns the total number of completed levels.
+    /// Updates the public completedLevelsCount for Inspector viewing.
+    /// </summary>
+    public int GetCompletedLevelsCount()
+    {
+        UpdateCompletedLevelsCount();
+        return completedLevelsCount;
+    }
 
+    /// <summary>
+    /// Helper method to recount completed levels.
+    /// </summary>
+    public void UpdateCompletedLevelsCount()
+    {
+        if (allLevels == null || allLevels.Count == 0)
+        {
+            completedLevelsCount = 0;
+            return;
+        }
+
+        int count = 0;
+        foreach (LevelConfiguration config in allLevels)
+        {
+            if (IsLevelCompleted(config.levelNumber))
+            {
+                count++;
+            }
+        }
+
+        completedLevelsCount = count;
+    }
+
+    //// <summary>
+    /// Checks whether every level loaded from resources has been completed.
+    /// </summary>
+    /// <returns>True if all levels are completed, false otherwise.</returns>
+    public bool AreAllLevelsCompleted()
+    {
+        UpdateCompletedLevelsCount();
+
+        int totalLevels = allLevels != null ? allLevels.Count : 0;
+        Debug.Log($"[LevelMenuManager] Level Completion Status: {completedLevelsCount} / {totalLevels} completed.");
+
+        return totalLevels > 0 && completedLevelsCount == totalLevels;
+    }
+
+    public void CheckForLevelAchievements()
+    {
+        if (AreAllLevelsCompleted())
+        {
+            // TP_FINISHED
+        }
+    }
+
+    /// <summary>
+    /// Helper method to check if a level is completed by checking if a valid best time exists.
+    /// </summary>
+    public bool IsLevelCompleted(int levelNumber)
+    {
+        // Checks if a best time exists and is greater than 0
+        // (Supports float, int, or string formats if stored as time)
+        if (PlayerPrefs.HasKey("Level_" + levelNumber + "_Time"))
+        {
+            return PlayerPrefs.GetFloat("Level_" + levelNumber + "_Time", 0f) > 0f;
+        }
+
+        if (PlayerPrefs.HasKey("LevelTime_" + levelNumber))
+        {
+            return PlayerPrefs.GetFloat("LevelTime_" + levelNumber, 0f) > 0f;
+        }
+
+        if (PlayerPrefs.HasKey("BestTime_Level_" + levelNumber))
+        {
+            return PlayerPrefs.GetFloat("BestTime_Level_" + levelNumber, 0f) > 0f;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks how many levels have achieved 5 stars and logs the count.
+    /// </summary>
+    /// <returns>The total number of levels completed with 5 stars.</returns>
+    public int GetFiveStarLevelsCount()
+    {
+        UpdateFiveStarLevelsCount();
+
+        int totalLevels = allLevels != null ? allLevels.Count : 0;
+        Debug.Log($"[LevelMenuManager] 5-Star Status: {fiveStarLevelsCount} / {totalLevels} levels have 5 stars.");
+
+        if(fiveStarLevelsCount == totalLevels)
+        {
+            // TP_COMPLETIONIST
+        }
+
+        return fiveStarLevelsCount;
+    }
+
+    /// <summary>
+    /// Helper method to recount 5-star levels.
+    /// </summary>
+    private void UpdateFiveStarLevelsCount()
+    {
+        if (allLevels == null || allLevels.Count == 0)
+        {
+            fiveStarLevelsCount = 0;
+            return;
+        }
+
+        int count = 0;
+        foreach (LevelConfiguration config in allLevels)
+        {
+            if (GetLevelStars(config.levelNumber) >= 5)
+            {
+                count++;
+            }
+        }
+
+        fiveStarLevelsCount = count;
+
+        if(fiveStarLevelsCount == 5)
+        {
+            // TP_SPEEDRUNNER
+        }
+
+    }
+
+    /// <summary>
+    /// Helper method to retrieve the star rating for a specific level from PlayerPrefs.
+    /// </summary>
+    public int GetLevelStars(int levelNumber)
+    {
+        // Checks common PlayerPrefs key patterns for stars
+        if (PlayerPrefs.HasKey("Level_" + levelNumber + "_Stars"))
+        {
+            return PlayerPrefs.GetInt("Level_" + levelNumber + "_Stars", 0);
+        }
+
+        if (PlayerPrefs.HasKey("LevelStars_" + levelNumber))
+        {
+            return PlayerPrefs.GetInt("LevelStars_" + levelNumber, 0);
+        }
+
+        if (PlayerPrefs.HasKey("Stars_Level_" + levelNumber))
+        {
+            return PlayerPrefs.GetInt("Stars_Level_" + levelNumber, 0);
+        }
+
+        return 0;
+    }
 }

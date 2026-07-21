@@ -253,7 +253,7 @@ public class ToastBehavior : MonoBehaviour
 
         // Add a callback timer to reset hasbeenhit after a short delay if there are slaps left
 
-
+        Toaster.Instance.IncrementToastsPunched();
 
 
         string currentJam = JamDecider.Instance.GetCurrentJamName();
