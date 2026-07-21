@@ -18,7 +18,7 @@ MonoBehaviour:
   bossToastsRequired: 10
   hoverTime: 3
   minPreHoverDelay: 0
-  maxPreHoverDelay: 0.2
+  maxPreHoverDelay: 0.1
   driftFactor: 0.1
   fiveStarTime: 30
   fourStarTime: 45

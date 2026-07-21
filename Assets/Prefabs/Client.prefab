@@ -715,6 +715,114 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1508199088840173972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6331288333993353170}
+  - component: {fileID: 1417618563502014778}
+  - component: {fileID: 2729339511378757042}
+  - component: {fileID: 7302609278345796899}
+  - component: {fileID: 3623443649315374625}
+  m_Layer: 5
+  m_Name: Finished
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &6331288333993353170
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508199088840173972}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.49202916, y: 0.49202916, z: 0.49202916}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6624962391152640303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.4957676}
+  m_SizeDelta: {x: 10, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1417618563502014778
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508199088840173972}
+  m_CullTransparentMesh: 1
+--- !u!114 &2729339511378757042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508199088840173972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7a2d9120965cd264f8e9ac37f281d88f, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 0
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7302609278345796899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508199088840173972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfba394d4e91d54f849f02d4965a541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.4
+  punchScaleAmount: 1
+  spinRotations: 2
+  scaleEase: 13
+--- !u!114 &3623443649315374625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508199088840173972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.24256852, g: 0.4874355, b: 0.6509434, a: 1}
+  m_EffectDistance: {x: 0.3, y: -0.3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1521283142239410685
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,6 +1060,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1480143497406351257}
+  - {fileID: 6331288333993353170}
   m_Father: {fileID: 8110363736401180882}
   m_LocalEulerAnglesHint: {x: -12.314, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5818,6 +5927,7 @@ MonoBehaviour:
   rightEyeRenderer: {fileID: 3072591452827406901}
   thoughtBubble: {fileID: 1792011874159153842}
   wantIcon: {fileID: 3427600503985974363}
+  satisfiedIcon: {fileID: 1508199088840173972}
   sfxMixer: {fileID: 24100000, guid: af3b66b11444e4a42b96b7d31c077263, type: 2}
   puppetMixer: {fileID: 24100000, guid: c3d7cd0aed75e1d40b47ffd41494ccf7, type: 2}
   gettingUpSound:
@@ -5884,6 +5994,9 @@ MonoBehaviour:
   mouthIsOpenSoundFrei:
   - {fileID: 8300000, guid: a8d3f8ad41048924fa3f8e0b8e1e7283, type: 3}
   mouthAudioSource: {fileID: 8459887380780023882}
+  onBossEaten:
+    m_PersistentCalls:
+      m_Calls: []
   eyeClampAngle: 45
 --- !u!1 &8930406518394524774
 GameObject:

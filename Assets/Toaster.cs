@@ -23,7 +23,7 @@ public class Toaster : MonoBehaviour
     public List<Transform> targets;
     public GameObject armPrefab;
 
-    [SerializeField] private float punishmentCooldown = 4.0f;
+    [SerializeField] public float punishmentCooldown = 4.0f;
     private float? nextLaunchOverride = null; // Nullable float to track if we have a punishment pending
     [SerializeField] private float timeToLaunchToast = 2f;
     private float lastLaunchTime = 0f;
@@ -352,7 +352,7 @@ public class Toaster : MonoBehaviour
         toast.transform.eulerAngles += new Vector3(Random.Range(-15f, 15f), Random.Range(-15f, 15f), Random.Range(-15f, 15f));
 
         // Apply the calculated spread here
-        rb.AddForce(new Vector3(currentXSpread, Random.Range(upForce - 0.5f, upForce), Random.Range(-zSpread, zSpread)), ForceMode.Impulse);
+        rb.AddForce(new Vector3(currentXSpread, Random.Range(upForce - 0.25f, upForce), Random.Range(-zSpread, zSpread)), ForceMode.Impulse);
 
         if (isSimul)
         {

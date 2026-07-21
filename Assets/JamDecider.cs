@@ -17,9 +17,8 @@ public class JamDecider : MonoBehaviour
         public JamFlavor flavor;
         public Color jamColor;
         public Transform dippingStation;
-
-        // NEW: Number sprite for each flavor
         public GameObject numberSprite;
+        public Outline outline;
     }
 
     [Header("Settings")]
@@ -56,15 +55,16 @@ public class JamDecider : MonoBehaviour
     {
         currentJamIndex = -1;
         lastDipTime = -10f;
+
+        
     }
 
     public void ResetJams()
     {
         foreach (var jam in allAvailableJams)
         {
-
+            if (jam.dippingStation != null)
                 jam.dippingStation.gameObject.SetActive(false);
-            
         }
     }
 
@@ -77,7 +77,8 @@ public class JamDecider : MonoBehaviour
             if (requiredFlavors.Contains(jam.flavor))
             {
                 activeJams.Add(jam);
-                jam.dippingStation.gameObject.SetActive(true);
+                if (jam.dippingStation != null)
+                    jam.dippingStation.gameObject.SetActive(true);
 
                 // Ensure number sprites start visible
                 if (jam.numberSprite != null)
@@ -85,22 +86,36 @@ public class JamDecider : MonoBehaviour
             }
             else
             {
-                jam.dippingStation.gameObject.SetActive(false);
+                if (jam.dippingStation != null)
+                    jam.dippingStation.gameObject.SetActive(false);
             }
         }
 
-        if (!alreadyDipped)
-            SelectJam(0, true);
+        if (!alreadyDipped && activeJams.Count > 0)
+        {
+            // Select the first active jam by default
+            SelectByFlavor(activeJams[0].flavor, true);
+        }
     }
 
     void Update()
     {
-        for (int i = 0; i < activeJams.Count; i++)
+        // Fixed Keybindings: Butter = 1, Strawberry = 2, Grape = 3, Peanut = 4
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
-            {
-                SelectJam(i);
-            }
+            SelectByFlavor(JamFlavor.Butter);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectByFlavor(JamFlavor.StrawberryJam);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectByFlavor(JamFlavor.GrapeJam);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SelectByFlavor(JamFlavor.PeanutButter);
         }
     }
 
@@ -145,14 +160,64 @@ public class JamDecider : MonoBehaviour
         }
     }
 
-    public void SelectByFlavor(JamFlavor flavor)
+    public void SelectByFlavor(JamFlavor flavor, bool bypassCooldown = false)
     {
         for (int i = 0; i < activeJams.Count; i++)
         {
             if (activeJams[i].flavor == flavor)
             {
-                SelectJam(i);
+                SelectJam(i, bypassCooldown);
                 return;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Call this from the client with the desired condiment string name or flavor string.
+    /// Blinks the Outline component's OutlineWidth on the matching jam's dipping station back and forth 10 times, finishing at 0.
+    /// </summary>
+    public void BlinkOutline(string condimentName)
+    {
+        foreach (var jam in allAvailableJams)
+        {
+            // Matches against either jam.name or jam.flavor enum string
+            if (jam.name.Equals(condimentName, System.StringComparison.OrdinalIgnoreCase) ||
+                jam.flavor.ToString().Equals(condimentName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                if (jam.dippingStation == null) return;
+
+                // Retrieve all Outline components on the dipping station and all of its children
+                Outline[] outlineComponents = jam.dippingStation.GetComponentsInChildren<Outline>(true);
+                if (outlineComponents == null || outlineComponents.Length == 0) return;
+
+                foreach (var outlineComponent in outlineComponents)
+                {
+                    if (outlineComponent == null) continue;
+
+                    outlineComponent.enabled = true;
+
+                    // Kill any existing tweens on this specific outline component
+                    DOTween.Kill(outlineComponent);
+
+                    // Initial reset to 0
+                    outlineComponent.OutlineWidth = 0f;
+
+                    // 0 -> 10 over 0.2s, repeated 10 times with Yoyo (0 -> 10 -> 0 -> 10 ...)
+                    DOTween.To(() => outlineComponent.OutlineWidth, x => outlineComponent.OutlineWidth = x, 10f, 0.2f)
+                        .SetLoops(10, LoopType.Yoyo)
+                        .SetEase(Ease.InOutSine)
+                        .SetTarget(outlineComponent)
+                        .OnComplete(() =>
+                        {
+                            if (outlineComponent != null)
+                            {
+                                outlineComponent.OutlineWidth = 0f;
+                                outlineComponent.enabled = false;
+                            }
+                        }); // Safeguard reset to guaranteed 0
+                }
+
+                break;
             }
         }
     }
@@ -190,7 +255,7 @@ public class JamDecider : MonoBehaviour
 
         if (currentJamIndex >= activeJams.Count)
         {
-            SelectByFlavor(activeJams[0].flavor);
+            SelectByFlavor(activeJams[0].flavor, true);
         }
 
         return activeJams[currentJamIndex].flavor.ToString();

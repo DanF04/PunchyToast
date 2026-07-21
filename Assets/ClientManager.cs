@@ -80,6 +80,7 @@ public class ClientManager : MonoBehaviour
         levelConfig = config;
         currentWaveIndex = 0;
         totalClientsSatisfied = 0;
+        levelFinished = false;
         Toaster.Instance.SetupToasterSettings(config);
         Toaster.Instance.ResetCombo();
         clientCounterUI.SetActive(true);
@@ -167,7 +168,7 @@ public class ClientManager : MonoBehaviour
 
     IEnumerator SpawnWave(int index)
     {
-        if (index >= levelConfig.waves.Count) { StartCoroutine(FinishLevelRoutine()); yield break; }
+        if (index >= levelConfig.waves.Count) {  yield break; }
         if (index > 0) yield return new WaitForSeconds(0.2f);
 
         clientsFinishedInWave = 0;
@@ -488,15 +489,21 @@ public class ClientManager : MonoBehaviour
         return clientPrefabs[0].prefab;
     }
 
+    public void AddClientAndUpdateUI()
+    {
+        totalClientsSatisfied++;
+        UpdateUI();
+    }
+
     public void OnClientFinished()
     {
         clientsFinishedInWave++;
-        totalClientsSatisfied++;
+        
 
         if(EndlessModeManager.Instance.isRunning)
             EndlessModeManager.Instance.AddASatisfiedClient();
 
-        UpdateUI();
+        
 
         // Only do wave progression if we're in a normal level
         if ((levelConfig != null && currentWaveIndex < levelConfig.waves.Count &&
@@ -700,7 +707,7 @@ public class ClientManager : MonoBehaviour
             currentWaveIndex++;
 
         // Debug the if logic to see whats happening when we clear a seat after the last wave
-        Debug.Log($"Checking conditions for finishing level: levelConfig is null? {levelConfig == null}, currentWaveIndex: {currentWaveIndex}, levelConfig.waves.Count: {(levelConfig != null ? levelConfig.waves.Count : "N/A")}, activeClients.Count: {activeClients.Count}, levelFinished: {levelFinished}");
+        Debug.Log($"Checking conditions for finishing level: levelConfig is null? {levelConfig == null}, currentWaveIndex: {currentWaveIndex}, levelConfig.waves.Count: {(levelConfig != null ? levelConfig.waves.Count : "N/A")}, activeClients.Count: {activeClients.Count} isBossFight: {(levelConfig != null ? levelConfig.isBossFight : "N / A")}, levelFinished: {levelFinished}");
 
         if (activeClients.Remove(seat)
             && levelConfig != null 

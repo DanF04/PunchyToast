@@ -77,7 +77,26 @@ public class ToastBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Bounce off "Wall" layer objects while hovering by flipping X velocity direction
+        if (isHovering && collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            capturedXVel = -capturedXVel;
+            capturedZVel = 0f;
+            rb.linearVelocity = new Vector3(capturedXVel * driftFactor, 0f, 0f);
+            return;
+        }
+
         AudioManager.Instance.PlaySound(toastLandingNaturally, sfxMixer, transform.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isHovering && other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            capturedXVel = -capturedXVel;
+            capturedZVel = 0f;
+            rb.linearVelocity = new Vector3(capturedXVel * driftFactor, 0f, 0f);
+        }
     }
 
     void Awake()
@@ -187,20 +206,43 @@ public class ToastBehavior : MonoBehaviour
     {
         TrailRenderer[] lineRenderers = GetComponentsInChildren<TrailRenderer>();
         foreach (TrailRenderer lr in lineRenderers) lr.enabled = false;
+
         yield return new WaitForSeconds(preHoverDelay);
+
         capturedXVel = rb.linearVelocity.x;
         capturedZVel = rb.linearVelocity.z;
         isHovering = true;
         rb.useGravity = false;
-        bobTween = transform.DOMoveY(bobAmount, bobSpeed).SetRelative().SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+
+        // Reset Y linear velocity to prevent residual upward momentum
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        // Lock baseline Y height on first hover initialization
+        if (baselineY == 0f)
+        {
+            baselineY = transform.position.y;
+        }
+        else
+        {
+            // Smoothly snap position back to baseline Y height after a slap
+            transform.DOMoveY(baselineY, 0.15f).SetEase(Ease.OutQuad);
+        }
+
+        // Start clean Y-bobbing relative to the baseline height
+        if (bobTween != null) bobTween.Kill();
+        bobTween = transform.DOMoveY(baselineY + bobAmount, bobSpeed)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
 
         float timer = 0;
         while (timer < hoverDuration)
         {
             timer += Time.fixedDeltaTime;
-            rb.linearVelocity = new Vector3(capturedXVel * driftFactor, 0, capturedZVel * driftFactor);
+            // Strict 0 on Y velocity to prevent physics forces from accumulating height
+            rb.linearVelocity = new Vector3(capturedXVel * driftFactor, 0f, capturedZVel * driftFactor);
             yield return new WaitForFixedUpdate();
         }
+
         if (!hasBeenHit) ReleaseToast();
     }
 
@@ -250,7 +292,7 @@ public class ToastBehavior : MonoBehaviour
         bool isLastHit = ClientManager.Instance.IsLastToastOfLevel() && slapsLeft <= 1;
         if (isLastHit)
         {
-            Time.timeScale = 0.05f; // Slow down time as punch connects
+            Time.timeScale = 0.2f; // Slow down time as punch connects
             if (Toaster.Instance.cinematicCamera != null)
             {
                 Toaster.Instance.cinematicCamera.gameObject.SetActive(true);
@@ -293,6 +335,10 @@ public class ToastBehavior : MonoBehaviour
         });
     }
 
+    private float slapHorizontalDir = 1f; // Toggles between 1 (Right) and -1 (Left)
+    private float slapVerticalDir = 1f;   // Toggles between 1 (Up) and -1 (Down)
+    private float baselineY; // Locked Y coordinate for hovering
+
     IEnumerator ImpactSequence(GameObject arm, Transform target, Vector3 dirToTarget)
     {
         if (bobTween != null) bobTween.Kill();
@@ -303,32 +349,40 @@ public class ToastBehavior : MonoBehaviour
         // 1. Instantiate punch effect
         GameObject punchEffectInstance = Instantiate(punchEffect, transform.position, Quaternion.identity);
 
-
-
         ApplyJamSplat();
 
-        // Calculate the common destination offset
-        // Flatten the direction vector: remove Z and re-normalize it
-        Vector3 flattenedDir = new Vector3(dirToTarget.x, dirToTarget.y, 0).normalized;
+        // 2. Calculate movement offset (alternates horizontal knockback)
+        Vector3 moveOffset;
 
-        // Use the flattened direction for the movement offset
-        Vector3 moveOffset = flattenedDir * pushForce;
+        if (slapsLeft > 0 && isSlappable)
+        {
+            Camera cam = Camera.main;
+            Vector3 screenRight = cam != null ? cam.transform.right : Vector3.right;
 
-        // 2. Fire all three Tweens at once. 
-        // Using the same duration (impactFreezeTime) and Ease (Linear) keeps them locked together.
+            // Pure horizontal displacement on X/Z (prevents vertical Y climbing)
+            Vector3 horizontalDir = new Vector3(screenRight.x, 0f, screenRight.z).normalized;
+            moveOffset = horizontalDir * (pushForce * slapHorizontalDir);
+
+            // Toggle direction for the next slap (Right <-> Left)
+            slapHorizontalDir *= -1f;
+        }
+        else
+        {
+            // Final hit: standard forward push toward target
+            Vector3 flattenedDir = new Vector3(dirToTarget.x, dirToTarget.y, 0).normalized;
+            moveOffset = flattenedDir * pushForce;
+        }
+
+        // 3. Fire impact move tweens
         arm.transform.DOMove(arm.transform.position + moveOffset, impactFreezeTime).SetEase(Ease.Linear);
         transform.DOMove(transform.position + moveOffset, impactFreezeTime).SetEase(Ease.Linear);
 
-        // The effect now moves alongside the toast without being a child
         if (punchEffectInstance != null)
         {
             punchEffectInstance.transform.DOMove(punchEffectInstance.transform.position + moveOffset, impactFreezeTime).SetEase(Ease.Linear);
         }
 
         yield return new WaitForSeconds(impactFreezeTime);
-
-        // After this point, the punchEffectInstance has finished its move and stays in place 
-        // while the toast continues with the shake and the rest of the logic.
 
         if (CameraShake.Instance != null) CameraShake.Instance.Shake(0.2f, 0.1f, 30);
         transform.DOShakePosition(0.05f, shakeIntensity, shakeVibrato);
@@ -342,39 +396,41 @@ public class ToastBehavior : MonoBehaviour
 
         if (slapsLeft > 0 && isSlappable)
         {
-
-
-
             SetCurrentLetter(slapString[slapString.Length - slapsLeft]);
 
-            // 1. Invert drift and Reset Physics
-            driftFactor *= -1;
+            // Invert horizontal drift velocity strictly once
+            capturedXVel = -capturedXVel;
+            capturedZVel = -capturedZVel;
+
+            // Ensure minimum speed threshold so momentum doesn't drop
+            float minDriftSpeed = 1.5f;
+            if (Mathf.Abs(capturedXVel) < minDriftSpeed)
+            {
+                capturedXVel = Mathf.Sign(capturedXVel) != 0 ? Mathf.Sign(capturedXVel) * minDriftSpeed : minDriftSpeed;
+            }
+
+            // Re-enable physics and immediately assign full inverted velocity
             rb.isKinematic = false;
             rb.useGravity = false;
+            rb.linearVelocity = new Vector3(capturedXVel * driftFactor, 0f, capturedZVel * driftFactor);
 
-
-            // 2. Clear previous rotation and Spin (720 degrees)
-            transform.DOKill(false); // kill existing rotation tweens without completing them
-            transform.eulerAngles = originalRotation; // snap back to clean starting rotation
+            // Reset rotation and Spin
+            transform.DOKill(false);
+            transform.eulerAngles = originalRotation;
             transform.DORotate(new Vector3(0, 720, 0), slapSpinDuration, RotateMode.LocalAxisAdd).SetEase(Ease.OutBack);
 
-            // 3. Recoil the arm so it disappears
+            // Recoil arm
             Vector3 armRecoilPos = arm.transform.position - (dirToTarget * armRecoilDistance);
             arm.transform.DOMove(armRecoilPos, armShrinkDuration).SetEase(Ease.OutBack).OnComplete(() => Destroy(arm));
 
-            //yield return new WaitForSeconds(slapSpinDuration * 0.25f);
-
-            // 4. Reset state to allow hitting again
             hasBeenHit = false;
             isPunchable = true;
 
-            // Restart the hover behavior
-            //if (hoverRoutine != null) StopCoroutine(hoverRoutine);
             hoverRoutine = StartCoroutine(HoverRoutine());
         }
         else
         {
-            // FINAL HIT: Normal Launch behavior
+            // FINAL HIT: Launch behavior
             LaunchAtTarget(target);
 
             Vector3 recoilPos = arm.transform.position - (dirToTarget * armRecoilDistance);
@@ -386,7 +442,6 @@ public class ToastBehavior : MonoBehaviour
                 arm.transform.DOKill();
                 Destroy(arm);
             });
-            
         }
     }
 
@@ -481,9 +536,12 @@ public class ToastBehavior : MonoBehaviour
             if (letterText != null) letterText.enabled = false;
 
             Toaster.Instance.ResetCombo();
-            MusicManager.Instance.RecordScratchStop(4f);
+            MusicManager.Instance.RecordScratchStop(Toaster.Instance.punishmentCooldown);
 
             Client clientToBonk = ClientManager.Instance.GetClientInSeat(target);
+
+           
+
             SphereCollider headCollider = clientToBonk != null ? clientToBonk.GetComponentInChildren<SphereCollider>() : null;
             Vector3 impactPoint = target.position;
 
@@ -575,6 +633,8 @@ public class ToastBehavior : MonoBehaviour
                     }
                 }
 
+                JamDecider.Instance.BlinkOutline(clientToBonk.desiredCondiment);
+
                 // --- CINEMATIC CAMERA: Return ---
                 mainCam.DOFieldOfView(originalFOV, 0.6f).SetEase(Ease.InOutBack);
                 mainCam.transform.DORotateQuaternion(originalCamRot, 0.6f).SetEase(Ease.InOutBack);
@@ -651,6 +711,8 @@ public class ToastBehavior : MonoBehaviour
             }
         }
     }
+
+
 
     private void OnDestroy() { if (Toaster.Instance != null) Toaster.Instance.UnregisterToast(this); transform.DOKill(); }
 }

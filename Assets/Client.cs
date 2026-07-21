@@ -91,7 +91,7 @@ public class Client : MonoBehaviour
 
     [SerializeField] private GameObject thoughtBubble;
     [SerializeField] private Image wantIcon;
-
+    [SerializeField] private GameObject satisfiedIcon;
 
     [SerializeField] private AudioMixer sfxMixer;
     [SerializeField] private AudioMixer puppetMixer;
@@ -566,13 +566,20 @@ public class Client : MonoBehaviour
         {
             OpenMouth();
 
+            if (isSatisfied && !hasEaten)
+            {
+                ClientManager.Instance.AddClientAndUpdateUI();
+                if (satisfiedIcon != null)
+                    satisfiedIcon.SetActive(true);
+            }
             DOVirtual.DelayedCall(0.4f, () => {
                 if (toast != null)
                 {
                     toast.transform.DOKill();
                     Destroy(toast);
                 }
-                    
+
+                
 
                 PlayMunchAnimation(() => {
                     onBossEaten.Invoke();
@@ -597,6 +604,8 @@ public class Client : MonoBehaviour
         eyeToastL.SetActive(true);
         eyeToastR.SetActive(true);
 
+        ClientManager.Instance.OnClientFinished();
+
         if (hopTween != null) hopTween.Kill();
         if (mouthTween != null) mouthTween.Kill();
 
@@ -607,7 +616,7 @@ public class Client : MonoBehaviour
             pivot.DOLocalMove(pivotInitialLocalPos, 0.2f);
         }
 
-        ClientManager.Instance.OnClientFinished();
+        
         if (mySeat != null) ClientManager.Instance.ClearSeat(mySeat);
         ExitScene();
     }

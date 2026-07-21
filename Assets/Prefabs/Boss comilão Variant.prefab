@@ -4870,6 +4870,7 @@ MonoBehaviour:
   rightEyeRenderer: {fileID: 1116013733716476715}
   thoughtBubble: {fileID: 4397316952113333164}
   wantIcon: {fileID: 741300952325537093}
+  satisfiedIcon: {fileID: 0}
   sfxMixer: {fileID: 24100000, guid: af3b66b11444e4a42b96b7d31c077263, type: 2}
   puppetMixer: {fileID: 24100000, guid: c3d7cd0aed75e1d40b47ffd41494ccf7, type: 2}
   gettingUpSound:
@@ -4947,7 +4948,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0.04
+          m_FloatArgument: 0.03
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2

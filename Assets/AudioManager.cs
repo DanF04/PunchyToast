@@ -90,6 +90,7 @@ public class AudioManager : MonoBehaviour
         source.clip = clip;
         source.volume = volume;
         source.pitch = pitch; // Uses the passed value directly
+        source.outputAudioMixerGroup = mixer.FindMatchingGroups("Master")[0];
 
         source.Play();
         Destroy(go, clip.length / Mathf.Max(0.01f, pitch));
