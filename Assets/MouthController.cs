@@ -19,6 +19,20 @@ public class MouthController : MonoBehaviour
     [Tooltip("The body, upper-body, or head transform used for idle movement.")]
     [SerializeField] private Transform idleBone;
 
+    [Header("Eye Tracking Settings")]
+    [SerializeField] private Transform leftEye;
+    [SerializeField] private Transform rightEye;
+
+    [Tooltip("Maximum allowed eye rotation angle from forward in degrees.")]
+    [Range(5f, 85f)]
+    [SerializeField] private float maxEyeAngle = 40f;
+
+    [Tooltip("How smoothly eyes track the target or return to forward position.")]
+    [SerializeField] private float eyeTrackingSpeed = 10f;
+
+    [Header("Seed Settings")]
+    [SerializeField] private int seed = 12345;
+
     [Header("Visibility Logic")]
     [SerializeField] private bool useSilenceThreshold = true;
 
@@ -91,8 +105,7 @@ public class MouthController : MonoBehaviour
     [Header("Look Back Direction")]
     [SerializeField] private bool useRandomLookBack = true;
 
-    [SerializeField] private LookBackDirection lookBackDirection =
-        LookBackDirection.Random;
+    [SerializeField] private LookBackDirection lookBackDirection = LookBackDirection.Random;
 
     [Header("Normal Look Back")]
     [Tooltip("Angle used for the normal turn.")]
@@ -121,12 +134,17 @@ public class MouthController : MonoBehaviour
     [Tooltip("Maximum idle time before another turn.")]
     [SerializeField] private float lookBackDelayMax = 9f;
 
+    private System.Random rng;
+
     private Vector3 initialPosition;
     private Vector3 initialBobPosition;
 
     private Vector3 initialIdlePosition;
     private Vector3 initialIdleScale;
     private Quaternion initialIdleRotation;
+
+    private Quaternion initialLeftEyeRotation;
+    private Quaternion initialRightEyeRotation;
 
     private float smoothedIntensity;
 
@@ -154,6 +172,22 @@ public class MouthController : MonoBehaviour
     private bool idleHasStarted;
 
     private Sequence lookBackSequence;
+    private TAG_Toast cachedToastTarget;
+
+    private void Awake()
+    {
+        rng = new System.Random(seed);
+    }
+
+    private float GetRandomRange(float min, float max)
+    {
+        return (float)(min + (max - min) * rng.NextDouble());
+    }
+
+    private float GetRandomValue()
+    {
+        return (float)rng.NextDouble();
+    }
 
     private void Start()
     {
@@ -172,14 +206,19 @@ public class MouthController : MonoBehaviour
             initialIdleScale = idleBone.localScale;
         }
 
+        if (leftEye != null)
+            initialLeftEyeRotation = leftEye.localRotation;
+
+        if (rightEye != null)
+            initialRightEyeRotation = rightEye.localRotation;
+
         // Prevents every puppet from moving with exactly the same timing.
-        idlePhase = Random.Range(0f, Mathf.PI * 2f);
+        idlePhase = GetRandomRange(0f, Mathf.PI * 2f);
 
         SelectNewIdleVariation();
         ScheduleNextLookBack();
 
-        transform.position =
-            initialPosition + Vector3.down * popUpDistance;
+        transform.position = initialPosition + Vector3.down * popUpDistance;
     }
 
     private void Update()
@@ -192,8 +231,7 @@ public class MouthController : MonoBehaviour
             return;
         }
 
-        float rawIntensity =
-            visualizer.BandBuffer[bandIndex] * sensitivity;
+        float rawIntensity = visualizer.BandBuffer[bandIndex] * sensitivity;
 
         float targetIntensity = Mathf.Clamp01(
             (rawIntensity - noiseThreshold) /
@@ -207,15 +245,17 @@ public class MouthController : MonoBehaviour
         if (!isVisible)
             return;
 
+        // Frame-rate independent smoothing
         smoothedIntensity = Mathf.Lerp(
             smoothedIntensity,
             targetIntensity,
-            Time.deltaTime * interpolationSpeed
+            1f - Mathf.Exp(-interpolationSpeed * Time.deltaTime)
         );
 
         UpdateIdleState(isTalking);
         ApplyMouthAnimation();
         ApplyBodyAnimation();
+        UpdateEyeTracking();
     }
 
     private void HandleVisibility(bool isTalking)
@@ -233,9 +273,7 @@ public class MouthController : MonoBehaviour
         if (!isVisible)
             return;
 
-        bool audioIsPlaying =
-            audioSource != null &&
-            audioSource.isPlaying;
+        bool audioIsPlaying = audioSource != null && audioSource.isPlaying;
 
         if (keepVisibleWhileAudioIsPlaying && audioIsPlaying)
         {
@@ -266,8 +304,6 @@ public class MouthController : MonoBehaviour
             continuousSilenceTimer = 0f;
             idleHasStarted = false;
 
-            // Stops the turn tween but preserves its current angle.
-            // The angle then returns smoothly instead of snapping.
             StopLookBackTween();
 
             idleBlend = Mathf.MoveTowards(
@@ -312,7 +348,10 @@ public class MouthController : MonoBehaviour
             Time.deltaTime * 2f
         );
 
-        idleTimer += Time.deltaTime;
+        // Smooth continuous phase accumulation wrapping at 4*PI (full period of main + half-speed waves)
+        float twoCycles = Mathf.PI * 4f;
+        idleTimer += Time.deltaTime * idleSpeed * currentSpeedMultiplier * Mathf.PI * 2f;
+        idleTimer %= twoCycles;
 
         UpdateIdleVariation();
         UpdateLookBack();
@@ -329,13 +368,14 @@ public class MouthController : MonoBehaviour
 
     private void ReturnLookBackAngleToZero()
     {
+        // Frame-rate independent smoothing
         currentLookBackAngle = Mathf.Lerp(
             currentLookBackAngle,
             0f,
-            Time.deltaTime * talkingReturnSpeed
+            1f - Mathf.Exp(-talkingReturnSpeed * Time.deltaTime)
         );
 
-        if (Mathf.Abs(currentLookBackAngle) < 0.01f)
+        if (Mathf.Abs(currentLookBackAngle) < 0.001f)
             currentLookBackAngle = 0f;
     }
 
@@ -357,16 +397,17 @@ public class MouthController : MonoBehaviour
             targetSpeedMultiplier = 1f;
         }
 
+        // Frame-rate independent smoothing
         currentIdleStrength = Mathf.Lerp(
             currentIdleStrength,
             targetIdleStrength,
-            Time.deltaTime * variationSmoothSpeed
+            1f - Mathf.Exp(-variationSmoothSpeed * Time.deltaTime)
         );
 
         currentSpeedMultiplier = Mathf.Lerp(
             currentSpeedMultiplier,
             targetSpeedMultiplier,
-            Time.deltaTime * variationSmoothSpeed
+            1f - Mathf.Exp(-variationSmoothSpeed * Time.deltaTime)
         );
     }
 
@@ -382,17 +423,15 @@ public class MouthController : MonoBehaviour
             variationChangeMax
         );
 
-        nextVariationDelay = Random.Range(minimum, maximum);
+        nextVariationDelay = GetRandomRange(minimum, maximum);
 
-        // Only small changes are used now.
-        targetIdleStrength = Random.Range(0.8f, 1.05f);
-        targetSpeedMultiplier = Random.Range(0.9f, 1.08f);
+        targetIdleStrength = GetRandomRange(0.8f, 1.05f);
+        targetSpeedMultiplier = GetRandomRange(0.9f, 1.08f);
     }
 
     private void UpdateLookBack()
     {
-        if (!useRandomLookBack ||
-            lookBackSequence != null)
+        if (!useRandomLookBack || lookBackSequence != null)
         {
             return;
         }
@@ -406,15 +445,78 @@ public class MouthController : MonoBehaviour
         }
     }
 
+    private void UpdateEyeTracking()
+    {
+        if (leftEye == null && rightEye == null)
+            return;
+
+        // Locate a TAG_Toast target in the scene if we don't currently have a valid reference
+        if (cachedToastTarget == null)
+        {
+            cachedToastTarget = FindAnyObjectByType<TAG_Toast>();
+        }
+
+        float factor = 1f - Mathf.Exp(-eyeTrackingSpeed * Time.deltaTime);
+
+        if (leftEye != null)
+            RotateEyeTowardTarget(leftEye, initialLeftEyeRotation, factor);
+
+        if (rightEye != null)
+            RotateEyeTowardTarget(rightEye, initialRightEyeRotation, factor);
+    }
+
+    private void RotateEyeTowardTarget(Transform eyeTransform, Quaternion defaultRotation, float lerpFactor)
+    {
+        if (cachedToastTarget == null)
+        {
+            eyeTransform.localRotation = Quaternion.Slerp(
+                eyeTransform.localRotation,
+                defaultRotation,
+                lerpFactor
+            );
+            return;
+        }
+
+        Vector3 targetDirection = cachedToastTarget.transform.position - eyeTransform.position;
+
+        if (targetDirection.sqrMagnitude < 0.0001f)
+            return;
+
+        // Construct a world rotation where local +Y points towards targetDirection
+        // Quaternion.FromToRotation maps Vector3.up (+Y) directly to targetDirection
+        Quaternion targetWorldRotation = Quaternion.FromToRotation(Vector3.up, targetDirection.normalized);
+
+        // Convert world target rotation into parent local space
+        Quaternion targetLocalRotation;
+        if (eyeTransform.parent != null)
+        {
+            targetLocalRotation = Quaternion.Inverse(eyeTransform.parent.rotation) * targetWorldRotation;
+        }
+        else
+        {
+            targetLocalRotation = targetWorldRotation;
+        }
+
+        // Clamp total rotation offset to maxEyeAngle from default initial rotation
+        Quaternion clampedRotation = Quaternion.RotateTowards(
+            defaultRotation,
+            targetLocalRotation,
+            maxEyeAngle
+        );
+
+        eyeTransform.localRotation = Quaternion.Slerp(
+            eyeTransform.localRotation,
+            clampedRotation,
+            lerpFactor
+        );
+    }
+
     private void ApplyMouthAnimation()
     {
         if (mouthBone != null)
         {
-            Quaternion closed =
-                Quaternion.Euler(closedRotation);
-
-            Quaternion open =
-                Quaternion.Euler(openRotation);
+            Quaternion closed = Quaternion.Euler(closedRotation);
+            Quaternion open = Quaternion.Euler(openRotation);
 
             mouthBone.localRotation = Quaternion.Slerp(
                 closed,
@@ -423,12 +525,9 @@ public class MouthController : MonoBehaviour
             );
         }
 
-        if (bobbingBone != null &&
-            bobbingBone != idleBone)
+        if (bobbingBone != null && bobbingBone != idleBone)
         {
-            bobbingBone.localPosition =
-                initialBobPosition +
-                bobOffset * smoothedIntensity;
+            bobbingBone.localPosition = initialBobPosition + bobOffset * smoothedIntensity;
         }
     }
 
@@ -437,17 +536,9 @@ public class MouthController : MonoBehaviour
         if (idleBone == null)
             return;
 
-        float animationTime =
-            idleTimer *
-            idleSpeed *
-            currentSpeedMultiplier *
-            Mathf.PI *
-            2f;
+        float animationTime = idleTimer;
 
-        // Fewer waves are used now, creating a calmer movement.
-        float mainWave = Mathf.Sin(
-            animationTime + idlePhase
-        );
+        float mainWave = Mathf.Sin(animationTime + idlePhase);
 
         float slowWave = Mathf.Sin(
             animationTime * 0.5f +
@@ -455,33 +546,17 @@ public class MouthController : MonoBehaviour
             1f
         );
 
-        float strength =
-            currentIdleStrength * idleBlend;
+        float strength = currentIdleStrength * idleBlend;
 
-        float verticalMovement =
-            mainWave *
-            idleBobDistance *
-            strength;
+        float verticalMovement = mainWave * idleBobDistance * strength;
 
-        float horizontalMovement =
-            slowWave *
-            idleSideDistance *
-            strength;
+        float horizontalMovement = slowWave * idleSideDistance * strength;
 
-        float nod =
-            mainWave *
-            idleNodAngle *
-            strength;
+        float nod = mainWave * idleNodAngle * strength;
 
-        float yaw =
-            slowWave *
-            idleYawAngle *
-            strength;
+        float yaw = slowWave * idleYawAngle * strength;
 
-        float tilt =
-            slowWave *
-            idleTiltAngle *
-            strength;
+        float tilt = slowWave * idleTiltAngle * strength;
 
         Vector3 targetPosition =
             initialIdlePosition +
@@ -490,8 +565,7 @@ public class MouthController : MonoBehaviour
 
         if (idleBone == bobbingBone)
         {
-            targetPosition +=
-                bobOffset * smoothedIntensity;
+            targetPosition += bobOffset * smoothedIntensity;
         }
 
         idleBone.localPosition = targetPosition;
@@ -504,7 +578,6 @@ public class MouthController : MonoBehaviour
                 tilt
             );
 
-        // The scale no longer changes during normal idle.
         idleBone.localScale = initialIdleScale;
     }
 
@@ -514,8 +587,7 @@ public class MouthController : MonoBehaviour
 
         float direction = GetLookBackDirection();
 
-        bool useDeepTurn =
-            Random.value < deepLookBackChance;
+        bool useDeepTurn = GetRandomValue() < deepLookBackChance;
 
         float targetAngle;
         float turnDuration;
@@ -538,6 +610,7 @@ public class MouthController : MonoBehaviour
         }
 
         lookBackSequence = DOTween.Sequence();
+        lookBackSequence.SetUpdate(UpdateType.Normal, false);
 
         lookBackSequence.Append(
             DOTween.To(
@@ -561,7 +634,6 @@ public class MouthController : MonoBehaviour
 
         lookBackSequence.OnComplete(() =>
         {
-            currentLookBackAngle = 0f;
             lookBackSequence = null;
             ScheduleNextLookBack();
         });
@@ -578,7 +650,7 @@ public class MouthController : MonoBehaviour
                 return 1f;
 
             case LookBackDirection.Random:
-                return Random.value < 0.5f ? -1f : 1f;
+                return GetRandomValue() < 0.5f ? -1f : 1f;
 
             default:
                 return 1f;
@@ -597,8 +669,7 @@ public class MouthController : MonoBehaviour
             lookBackDelayMax
         );
 
-        nextLookBackDelay =
-            Random.Range(minimum, maximum);
+        nextLookBackDelay = GetRandomRange(minimum, maximum);
 
         lookBackTimer = 0f;
     }
@@ -610,9 +681,6 @@ public class MouthController : MonoBehaviour
 
         lookBackSequence.Kill();
         lookBackSequence = null;
-
-        // Do not set currentLookBackAngle to zero here.
-        // That caused the snapping in the previous version.
     }
 
     private void ShowPuppet()
@@ -663,26 +731,29 @@ public class MouthController : MonoBehaviour
 
         if (mouthBone != null)
         {
-            mouthBone.localRotation =
-                Quaternion.Euler(closedRotation);
+            mouthBone.localRotation = Quaternion.Euler(closedRotation);
         }
 
         if (bobbingBone != null)
         {
-            bobbingBone.localPosition =
-                initialBobPosition;
+            bobbingBone.localPosition = initialBobPosition;
         }
 
         if (idleBone != null)
         {
-            idleBone.localPosition =
-                initialIdlePosition;
+            idleBone.localPosition = initialIdlePosition;
+            idleBone.localRotation = initialIdleRotation;
+            idleBone.localScale = initialIdleScale;
+        }
 
-            idleBone.localRotation =
-                initialIdleRotation;
+        if (leftEye != null)
+        {
+            leftEye.localRotation = initialLeftEyeRotation;
+        }
 
-            idleBone.localScale =
-                initialIdleScale;
+        if (rightEye != null)
+        {
+            rightEye.localRotation = initialRightEyeRotation;
         }
     }
 
