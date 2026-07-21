@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61414aa631448f0439aa58d3d500a49b
+guid: 4bf8d2bab05b7524eb1443691cb2201e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/unreliable_old_button/unreliable_old_button_03.wav
-  uploadId: 792348

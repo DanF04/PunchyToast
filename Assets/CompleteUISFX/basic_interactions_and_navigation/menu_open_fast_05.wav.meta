@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1e1f414308e39f14db92e810d9f73e6b
+guid: b42454fb37ce01f4c8fd913182193cb4
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/menu_open_fast_05.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2790d42e0b664724ca9d953948a5216a
+guid: 496ebfc5c36f3a846b003572de45c00b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/social_and_communication/friend_request_04.wav
-  uploadId: 792348

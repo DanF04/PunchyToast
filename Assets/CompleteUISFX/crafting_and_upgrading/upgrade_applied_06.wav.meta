@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d709c15c6112694d80af668370799af
+guid: a634dd801cc6f2642876f49d87c2653d
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/crafting_and_upgrading/upgrade_applied_06.wav
-  uploadId: 792348

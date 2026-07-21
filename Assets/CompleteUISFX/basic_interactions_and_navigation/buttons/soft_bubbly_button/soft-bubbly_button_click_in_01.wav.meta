@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a658d338a216db4bae714bc71c90b92
+guid: 7160b62850e9cfb49962326b2a228da5
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/soft_bubbly_button/soft-bubbly_button_click_in_01.wav
-  uploadId: 792348

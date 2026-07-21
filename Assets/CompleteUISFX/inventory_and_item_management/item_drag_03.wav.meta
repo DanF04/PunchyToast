@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 296e97c8e4524424985af183edb7a6d6
+guid: 1f629e058562591478ce52a469de2222
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/inventory_and_item_management/item_drag_03.wav
-  uploadId: 792348

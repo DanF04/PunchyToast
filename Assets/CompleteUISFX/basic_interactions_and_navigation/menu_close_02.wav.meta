@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 863b39af22f5a5c46ad0b1b7f7e0fc99
+guid: eba13e6a9d3e4cb4891355194004353b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/menu_close_02.wav
-  uploadId: 792348

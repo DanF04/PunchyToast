@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7281318328ff45c4d9da3e029ee7bb39
+guid: a6653bd4d85b42a4aa25649a822e9017
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/crafting_and_upgrading/crafting_fail_01.wav
-  uploadId: 792348

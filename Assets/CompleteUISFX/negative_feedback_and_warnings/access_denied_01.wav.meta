@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2764258edb0953543912dcdf9ee3a45e
+guid: a37b7e95562b94e4bae3047b5bd67d4a
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/negative_feedback_and_warnings/access_denied_01.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f2b061383b48e324a98e5af17ad4e2f4
+guid: f25b08b726648784b8835055c8b616b0
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/negative_feedback_and_warnings/error_message_01.wav
-  uploadId: 792348

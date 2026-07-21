@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a29aa4562ec7b0f4ab8bee3e999c2aba
+guid: bd2f3f61139d4ba45be9a8287db2a387
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/shop_and_economy/purchase_success_06.wav
-  uploadId: 792348

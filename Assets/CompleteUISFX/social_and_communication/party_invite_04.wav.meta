@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a9e5dddf058e204d8ed0b87587e35e3
+guid: a79b8d193e110b94587527faf3c71f9e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/social_and_communication/party_invite_04.wav
-  uploadId: 792348

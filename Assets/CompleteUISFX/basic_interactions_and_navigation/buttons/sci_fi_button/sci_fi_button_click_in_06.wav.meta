@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bee9dc91d516c9a4890761b9fb8f1263
+guid: 82f4bfbe3fa4c1c4390034d45c87f435
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/sci_fi_button/sci_fi_button_click_in_06.wav
-  uploadId: 792348

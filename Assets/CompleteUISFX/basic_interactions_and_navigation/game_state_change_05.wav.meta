@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5039e18ee0d6a64197cb27abf873620
+guid: 48c3c321e83e24f41872c53212108aee
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/game_state_change_05.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a643bafff7f2abf4bac37281acbd6fc6
+guid: 7dcba66f00838c746800944eb6295b87
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/dropdown_menu_liquid_02.wav
-  uploadId: 792348

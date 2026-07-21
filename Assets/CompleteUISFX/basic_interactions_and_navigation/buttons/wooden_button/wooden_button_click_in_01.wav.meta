@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5077a43b877d2f4bb5a549e5217ba8e
+guid: 9e9d3f3daf4c40f458b0ae2dfbd1c6e2
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/wooden_button/wooden_button_click_in_01.wav
-  uploadId: 792348

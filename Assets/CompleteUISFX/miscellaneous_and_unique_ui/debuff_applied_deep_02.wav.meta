@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 63c67409c06a2ad4c9d17dc3158b2730
+guid: c7d5ed9beb3e11c4eb63e8a2257774be
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/miscellaneous_and_unique_ui/debuff_applied_deep_02.wav
-  uploadId: 792348

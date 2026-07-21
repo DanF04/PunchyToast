@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a7b7a397c84b08846907fd378b750a6c
+guid: f6eca740ab3ab9b4a83cc6c684057867
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/social_and_communication/notification_04.wav
-  uploadId: 792348

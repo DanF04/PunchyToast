@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 423ab1f3280bd03489a0484092f0e546
+guid: eb768b9b182cefd48844f2dd15b14ada
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/positive_feedback_and_success/level_up_06.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79a440480f2047245b2d34cd1450a80c
+guid: c4edf46fe355f4d44a44c04063d55619
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/inventory_and_item_management/item_unequip_04.wav
-  uploadId: 792348

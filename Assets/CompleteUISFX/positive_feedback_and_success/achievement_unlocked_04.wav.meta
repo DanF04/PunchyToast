@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62cc8c35cfa60dc4582594c3da6cbaee
+guid: 4c8788753da077142a287bc6f65b4461
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/positive_feedback_and_success/achievement_unlocked_04.wav
-  uploadId: 792348

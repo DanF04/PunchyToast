@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2208b35a53c0b1499c6caeb4d6e2ab0
+guid: 7b0526e9fc294fc4d851066dc7c81997
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/inventory_and_item_management/item_split_02.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8ae8327345a347c4fa2f3f40428e4919
+guid: dc0c171bb4dd9314f9b4c36eff207f56
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/wooden_button/wooden_button_click_out_03.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95c092557226e334fb9e2bdd1868c6d7
+guid: 5642ef2a483d0d741a105e1eb5cf33d6
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/dramatic_button_04.wav
-  uploadId: 792348

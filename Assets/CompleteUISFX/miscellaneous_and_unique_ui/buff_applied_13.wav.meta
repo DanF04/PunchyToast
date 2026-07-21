@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e942afc2fbe64d640a682cfc26d9684f
+guid: cd317705e540c4a45aeef20c1b13b02b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/miscellaneous_and_unique_ui/buff_applied_13.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f064821fbe6a2304aa97dd85d4ebb3af
+guid: df739c6592546824eb9fcdd694d9d213
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/menu_open_slow_01.wav
-  uploadId: 792348

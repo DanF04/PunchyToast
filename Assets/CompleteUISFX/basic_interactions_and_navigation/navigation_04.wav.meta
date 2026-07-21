@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78a1cede9d8e92e40ad06ae6e134e292
+guid: 737c76da71b9b0d43ac29d20620fe2a0
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/navigation_04.wav
-  uploadId: 792348

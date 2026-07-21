@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f1b99f8b4cc13947b1835199a02b72f
+guid: 7c55feb7ddde048428a48071082b6a32
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/miscellaneous_and_unique_ui/reward_crate_open_05.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22228991d3013c443a92a123bbb7d680
+guid: cf2e9181523a61d4b8c6765d04a6e20c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/crafting_and_upgrading/crafting_start_03.wav
-  uploadId: 792348

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f1d00ef0fb01b945ba6980f79ae05bd
+guid: 338bd7cef5d91f84ebda95ec74ebe264
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/dropdown_menu_05.wav
-  uploadId: 792348

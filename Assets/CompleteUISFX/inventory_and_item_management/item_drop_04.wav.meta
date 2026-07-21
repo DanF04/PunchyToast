@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1e6f33178a6c7114cb52f525144dd2ac
+guid: 0dd43921c7801de4484c73424e948e01
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/inventory_and_item_management/item_drop_04.wav
-  uploadId: 792348

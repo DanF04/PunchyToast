@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e720479bcaee5544080c413dd41d0175
+guid: 0e949d3e326d6064db4d73f3b277671b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
@@ -21,10 +21,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 324429
-  packageName: The Complete UI Sound Effects Library
-  packageVersion: 1.0.1
-  assetPath: Assets/CelerisLab/CompleteUISFX/basic_interactions_and_navigation/buttons/metallic_button/metallic_button_click_out_05.wav
-  uploadId: 792348
