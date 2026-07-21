@@ -54451,8 +54451,8 @@ MonoBehaviour:
   - {fileID: 606268467}
   - {fileID: 1778202767}
   - {fileID: 2065898430}
-  minSpawnDelay: 3
-  maxSpawnDelay: 15
+  minSpawnDelay: 1
+  maxSpawnDelay: 1
   speedRange: {x: 0.2, y: 0.5}
   sessionDurationRange: {x: 10, y: 30}
   mouthRotationXRange: {x: -5, y: -40}
