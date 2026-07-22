@@ -55,6 +55,8 @@ public class EndlessModeManager : MonoBehaviour
 
     [SerializeField] private GameObject[] mistakesCounter;
 
+    [SerializeField] private SteamManager steamManager;
+
     public void ResetMistakeCounter()    {
         lossesThisSession = 0;
         foreach (GameObject obj in mistakesCounter)
@@ -163,12 +165,15 @@ public class EndlessModeManager : MonoBehaviour
         {
             case 50:
                 //TP_INFINITEFIFTY
+
                 break;
             case 100:
                 //TP_INFINITEHUNDRED
+                steamManager.UnlockAchievement("TP_INFINITEHUNDRED");
                 break;
             case 200:
                 //TP_INFINITETWOHUNDRED
+                steamManager.UnlockAchievement("TP_INFINITETWOHUNDRED");
                 break;
         }
 

@@ -38,6 +38,8 @@ public class LevelMenuManager : MonoBehaviour
     private LevelButton lastPlayedLevel;
     private int lastPlayedLevelNumber = -1;
 
+    [SerializeField] private SteamManager steamManager;
+
     private void Awake()
     {
         // Set up the Singleton instance
@@ -288,6 +290,7 @@ public class LevelMenuManager : MonoBehaviour
         if (AreAllLevelsCompleted())
         {
             // TP_FINISHED
+            steamManager.UnlockAchievement("TP_FINISHED");
         }
     }
 
@@ -330,6 +333,7 @@ public class LevelMenuManager : MonoBehaviour
         if(fiveStarLevelsCount == totalLevels)
         {
             // TP_COMPLETIONIST
+            steamManager.UnlockAchievement("TP_COMPLETIONIST");
         }
 
         return fiveStarLevelsCount;
@@ -360,6 +364,7 @@ public class LevelMenuManager : MonoBehaviour
         if(fiveStarLevelsCount == 5)
         {
             // TP_SPEEDRUNNER
+            steamManager.UnlockAchievement("TP_SPEEDRUNNER");
         }
 
     }

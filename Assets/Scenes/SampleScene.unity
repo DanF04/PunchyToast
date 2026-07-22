@@ -22799,6 +22799,7 @@ MonoBehaviour:
   cinematicCameraPosition: {x: 0, y: 0, z: 0}
   cinematicCameraRotation: {x: 0, y: 0, z: 0}
   cinematicCameraFOV: 60
+  steamManager: {fileID: 1390926617}
 --- !u!65 &430270192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23121,6 +23122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca5803b5422fb8044897df10e5ed963d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  steamManager: {fileID: 1390926617}
 --- !u!1 &471768532
 GameObject:
   m_ObjectHideFlags: 0
@@ -72008,6 +72010,7 @@ MonoBehaviour:
   - {fileID: 492111496}
   - {fileID: 931234378}
   - {fileID: 1986101748}
+  steamManager: {fileID: 1390926617}
   tier2At: 20
   tier3At: 40
   tier4At: 60
@@ -84231,6 +84234,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388045467}
   m_CullTransparentMesh: 1
+--- !u!1 &1390926616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390926618}
+  - component: {fileID: 1390926617}
+  m_Layer: 0
+  m_Name: SteamManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1390926617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390926616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b736546a2bb12146be49d39ea5ee031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appID: 4993710
+  steamDebug: 0
+  enumField: 0
+--- !u!4 &1390926618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390926616}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395650530
 GameObject:
   m_ObjectHideFlags: 0
@@ -125322,6 +125372,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2588560916140100981, guid: e86a80cdc8ba77142b6788e728fd1399, type: 3}
+      propertyPath: steamManager
+      value: 
+      objectReference: {fileID: 1390926617}
     - target: {fileID: 3735106965111513185, guid: e86a80cdc8ba77142b6788e728fd1399, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -131341,6 +131395,7 @@ SceneRoots:
   - {fileID: 1949594051}
   - {fileID: 209723316}
   - {fileID: 201448711}
+  - {fileID: 1390926618}
   - {fileID: 1281635668}
   - {fileID: 494780366}
   - {fileID: 1688552890}

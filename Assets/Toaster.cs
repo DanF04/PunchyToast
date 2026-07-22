@@ -114,6 +114,8 @@ public class Toaster : MonoBehaviour
     public Vector3 cinematicCameraRotation = Vector3.zero;
     public float cinematicCameraFOV = 60f;
 
+    [SerializeField] private SteamManager steamManager;
+
     public float GetComboPitch()
     {
         if (currentCombo >= 1)
@@ -206,12 +208,15 @@ public class Toaster : MonoBehaviour
                 break;
             case 10:
                 // TP_TENTOAST
+                steamManager.UnlockAchievement("TP_TENTOAST");
                 break;
             case 100:
                 // TP_HUNDREDTOAST
+                steamManager.UnlockAchievement("TP_HUNDREDTOAST");
                 break;
             case 1000:
                 // TP_THOUSANDTOAST
+                steamManager.UnlockAchievement("TP_THOUSANDTOAST");
                 break;
         }
 
