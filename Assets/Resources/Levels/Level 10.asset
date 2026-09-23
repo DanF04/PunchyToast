@@ -20,8 +20,8 @@ MonoBehaviour:
   minPreHoverDelay: 0
   maxPreHoverDelay: 0.1
   driftFactor: 0.2
-  fiveStarTime: 30
-  fourStarTime: 45
+  fiveStarTime: 18
+  fourStarTime: 31
   threeStarTime: 60
   twoStarTime: 90
   waves:

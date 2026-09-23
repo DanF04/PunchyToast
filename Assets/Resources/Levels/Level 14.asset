@@ -20,9 +20,9 @@ MonoBehaviour:
   minPreHoverDelay: 0
   maxPreHoverDelay: 0.1
   driftFactor: 0.05
-  fiveStarTime: 30
-  fourStarTime: 45
-  threeStarTime: 60
+  fiveStarTime: 49
+  fourStarTime: 59
+  threeStarTime: 75
   twoStarTime: 90
   waves:
   - allowBottomRow: 1
@@ -73,7 +73,7 @@ MonoBehaviour:
   - allowBottomRow: 1
     allowTopRow: 1
     clientsInWave:
-    - jamFlavor: 2
+    - jamFlavor: 1
       customLetter: S
       simultaneousToast: 1
       toastsNeeded: 0
@@ -87,11 +87,11 @@ MonoBehaviour:
       slapString: 
     - jamFlavor: 1
       customLetter: C
-      simultaneousToast: 1
+      simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
-    - jamFlavor: 1
+    - jamFlavor: 2
       customLetter: O
       simultaneousToast: 0
       toastsNeeded: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   - allowBottomRow: 1
     allowTopRow: 1
     clientsInWave:
-    - jamFlavor: 1
+    - jamFlavor: 2
       customLetter: S
       simultaneousToast: 1
       toastsNeeded: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
-    - jamFlavor: 2
+    - jamFlavor: 1
       customLetter: O
       simultaneousToast: 0
       toastsNeeded: 0
@@ -157,13 +157,13 @@ MonoBehaviour:
   - allowBottomRow: 1
     allowTopRow: 1
     clientsInWave:
-    - jamFlavor: 1
+    - jamFlavor: 2
       customLetter: S
       simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
-    - jamFlavor: 2
+    - jamFlavor: 1
       customLetter: O
       simultaneousToast: 0
       toastsNeeded: 0

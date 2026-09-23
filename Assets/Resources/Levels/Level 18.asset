@@ -20,10 +20,10 @@ MonoBehaviour:
   minPreHoverDelay: 0
   maxPreHoverDelay: 0.1
   driftFactor: 0.2
-  fiveStarTime: 30
-  fourStarTime: 45
-  threeStarTime: 60
-  twoStarTime: 90
+  fiveStarTime: 96
+  fourStarTime: 116
+  threeStarTime: 140
+  twoStarTime: 160
   waves:
   - allowBottomRow: 1
     allowTopRow: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
       slapString: 
     - jamFlavor: 2
       customLetter: S
-      simultaneousToast: 1
+      simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 0
       slapString: 
@@ -270,7 +270,7 @@ MonoBehaviour:
       slapString: 
     - jamFlavor: 1
       customLetter: S
-      simultaneousToast: 1
+      simultaneousToast: 0
       toastsNeeded: 0
       isSlappable: 0
       slapString: 

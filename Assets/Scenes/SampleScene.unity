@@ -14953,6 +14953,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &290478299 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2011020121693000296, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+  m_PrefabInstance: {fileID: 4475662730135148746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &295178432
 GameObject:
   m_ObjectHideFlags: 0
@@ -42243,6 +42248,22 @@ PrefabInstance:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 125104768}
+    - target: {fileID: 7399854355397305843, guid: 96b9328cb05d2e04292e3355086d51ef, type: 3}
+      propertyPath: fifthStarSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d80856a1b34b7534e9400e87b201e862, type: 3}
+    - target: {fileID: 7399854355397305843, guid: 96b9328cb05d2e04292e3355086d51ef, type: 3}
+      propertyPath: starAudioSource
+      value: 
+      objectReference: {fileID: 290478299}
+    - target: {fileID: 7399854355397305843, guid: 96b9328cb05d2e04292e3355086d51ef, type: 3}
+      propertyPath: starPopSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399854355397305843, guid: 96b9328cb05d2e04292e3355086d51ef, type: 3}
+      propertyPath: 'starPopSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f7ed39dc7ca4f7a4dac118f534955673, type: 3}
     - target: {fileID: 8079063497603069177, guid: 96b9328cb05d2e04292e3355086d51ef, type: 3}
       propertyPath: m_Name
       value: Level Finished Canvas
@@ -122525,6 +122546,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2821592294009122585, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.755999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2836860998345336333, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -26.300001
+      objectReference: {fileID: 0}
     - target: {fileID: 2980864067562942704, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -122553,9 +122582,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2986844512680230512, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -26.755999
+      objectReference: {fileID: 0}
     - target: {fileID: 3352746330482659795, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398634321042720598, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.755999
       objectReference: {fileID: 0}
     - target: {fileID: 3449600438165199200, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -122712,6 +122749,10 @@ PrefabInstance:
     - target: {fileID: 4084371756697217146, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: scaleMultiplier
       value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126894124794878385, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -26.3
       objectReference: {fileID: 0}
     - target: {fileID: 4202482679936363635, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: hoverSpeed
@@ -122747,7 +122788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4299548703469074562, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -18.7
+      value: -25.8
       objectReference: {fileID: 0}
     - target: {fileID: 4299548703469074562, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -122956,6 +122997,10 @@ PrefabInstance:
     - target: {fileID: 7615568959283423813, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975009156150001823, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -26.755999
       objectReference: {fileID: 0}
     - target: {fileID: 8175624867202431932, guid: a8d93d6abe674d041a18fd35ff24c0fe, type: 3}
       propertyPath: hoverSpeed
