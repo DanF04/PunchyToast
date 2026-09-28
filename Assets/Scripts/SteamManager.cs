@@ -93,8 +93,13 @@ public class SteamManager : MonoBehaviour
         if (steamDebug || string.IsNullOrEmpty(id))
             id = achId;
 
+        if (!connectedToSteam)
+            return;
+
         var ach = new Steamworks.Data.Achievement(id);
-        ach.Trigger();
+
+      
+            ach.Trigger();
 
         Debug.Log($"Achievement {id} unlocked");
     }
