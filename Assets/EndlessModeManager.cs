@@ -57,6 +57,8 @@ public class EndlessModeManager : MonoBehaviour
 
     [SerializeField] private SteamManager steamManager;
 
+    [SerializeField] private int clientsSatisfiedForAchievement = 0;
+
     public void ResetMistakeCounter()    {
         lossesThisSession = 0;
         foreach (GameObject obj in mistakesCounter)
@@ -161,20 +163,18 @@ public class EndlessModeManager : MonoBehaviour
 
         // TP_INFINITE
 
-        switch(finalScoreValue)
-        {
-            case 50:
-                //TP_INFINITEFIFTY
+        
 
-                break;
-            case 100:
-                //TP_INFINITEHUNDRED
-                steamManager.UnlockAchievement("TP_INFINITEHUNDRED");
-                break;
-            case 200:
-                //TP_INFINITETWOHUNDRED
-                steamManager.UnlockAchievement("TP_INFINITETWOHUNDRED");
-                break;
+        if (finalScoreValue + clientsSatisfiedForAchievement >= 100)
+        {
+            Debug.Log("Unlocking Achievement: TP_INFINITEHUNDRED");
+            steamManager.UnlockAchievement("TP_INFINITEHUNDRED");
+        }
+
+        if(finalScoreValue + clientsSatisfiedForAchievement >= 200)
+        {
+            Debug.Log("Unlocking Achievement: TP_INFINITETWOHUNDRED");
+            steamManager.UnlockAchievement("TP_INFINITETWOHUNDRED");
         }
 
 

@@ -61,6 +61,8 @@ public class LevelMenuManager : MonoBehaviour
 
         AreAllLevelsCompleted(); // Check if all levels are completed and log the result
         GetFiveStarLevelsCount(); // Check how many levels have 5 stars and log the result
+        CheckForLevelAchievements();
+
         ShowPage(0, false);
     }
 
@@ -69,6 +71,11 @@ public class LevelMenuManager : MonoBehaviour
         LoadAllLevels();
         UpdateCompletedLevelsCount();
         UpdateFiveStarLevelsCount(); // Recount on enable
+
+        AreAllLevelsCompleted(); // Check if all levels are completed and log the result
+        GetFiveStarLevelsCount(); // Check how many levels have 5 stars and log the result
+        CheckForLevelAchievements();
+
         ShowPage(0, false);
     }
 
@@ -290,6 +297,7 @@ public class LevelMenuManager : MonoBehaviour
         if (AreAllLevelsCompleted())
         {
             // TP_FINISHED
+            Debug.Log("All levels completed! Unlocking achievement: TP_FINISHED");
             steamManager.UnlockAchievement("TP_FINISHED");
         }
     }
@@ -333,6 +341,7 @@ public class LevelMenuManager : MonoBehaviour
         if(fiveStarLevelsCount == totalLevels)
         {
             // TP_COMPLETIONIST
+            Debug.Log("All levels completed with 5 stars! Unlocking achievement: TP_COMPLETIONIST");
             steamManager.UnlockAchievement("TP_COMPLETIONIST");
         }
 
@@ -364,9 +373,42 @@ public class LevelMenuManager : MonoBehaviour
         if(fiveStarLevelsCount == 5)
         {
             // TP_SPEEDRUNNER
-            steamManager.UnlockAchievement("TP_SPEEDRUNNER");
+            //steamManager.UnlockAchievement("TP_SPEEDRUNNER");
         }
 
+    }
+
+    /// <summary>
+    /// CHEAT: gives every level except level 1 five stars (and marks it completed).
+    /// Right-click the component header in the Inspector > "Cheat: 5 Stars On All Except Level 1".
+    /// </summary>
+    [ContextMenu("Cheat: 5 Stars On All Except Level 1")]
+    public void CheatFiveStarsExceptFirst()
+    {
+        if (allLevels == null || allLevels.Count == 0) LoadAllLevels();
+
+        foreach (LevelConfiguration config in allLevels)
+        {
+            int n = config.levelNumber;
+            if (n == 1) continue;
+
+            // Write every key pattern that GetLevelStars() reads, so it works whichever one the game uses.
+            PlayerPrefs.SetInt("Level_" + n + "_Stars", 5);
+            PlayerPrefs.SetInt("LevelStars_" + n, 5);
+            PlayerPrefs.SetInt("Stars_Level_" + n, 5);
+
+            // Mark as completed only if there isn't already a best time saved.
+            if (!IsLevelCompleted(n))
+                PlayerPrefs.SetFloat("Level_" + n + "_Time", 1f);
+        }
+
+        PlayerPrefs.Save();
+
+        UpdateCompletedLevelsCount();
+        UpdateFiveStarLevelsCount();
+        ShowPage(currentPage, false); // rebuild the page so the buttons refresh
+
+        Debug.Log("[LevelMenuManager] CHEAT: all levels except level 1 now have 5 stars.");
     }
 
     /// <summary>

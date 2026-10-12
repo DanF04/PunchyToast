@@ -72,6 +72,8 @@ public class ClientManager : MonoBehaviour
     public bool isBossFight => levelConfig != null && levelConfig.isBossFight;
     private Client bossClient;
 
+    [SerializeField] private SteamManager steamManager;
+
     void Awake() { if (Instance == null) Instance = this; }
 
     public void StartLevel(LevelConfiguration config)
@@ -570,6 +572,8 @@ public class ClientManager : MonoBehaviour
         if (isBossFight)
         {
             // TP_BOSS
+            Debug.Log("Boss fight completed! Unlocking achievement. TP_BOSS");
+            steamManager.UnlockAchievement("TP_Boss");
         }
 
         foreach(var jam in JamDecider.Instance.activeJams)

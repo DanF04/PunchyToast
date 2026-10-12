@@ -22,6 +22,9 @@ public class ResetProgress : MonoBehaviour
             PlayerPrefs.DeleteKey($"Level_{num}_Combo");
         }
 
+
+        PlayerPrefs.DeleteKey("ToastsPunched");
+
         // Reset the "Last Played" tracking
         PlayerPrefs.DeleteKey("LastPlayedLevel");
 
