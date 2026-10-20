@@ -90309,7 +90309,7 @@ MonoBehaviour:
   hoverHeight: 0
   hoverSpeed: 0
   hoverVariance: 0
-  scaleMultiplier: 1
+  scaleMultiplier: 0.5
   scaleSpeed: 0
   scaleVariance: 0
   transitionDuration: 0.4
