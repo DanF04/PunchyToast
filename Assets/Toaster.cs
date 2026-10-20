@@ -209,10 +209,12 @@ public class Toaster : MonoBehaviour
             case 10:
                 // TP_TENTOAST
                 steamManager.UnlockAchievement("TP_TENTOAST");
+                Debug.Log("Achievement Unlocked: TP_TENTOAST");
                 break;
             case 100:
                 // TP_HUNDREDTOAST
                 steamManager.UnlockAchievement("TP_HUNDREDTOAST");
+                Debug.Log("Achievement Unlocked: TP_HUNDREDTOAST");
                 break;
             case 1000:
                 // TP_THOUSANDTOAST

@@ -89761,6 +89761,7 @@ MonoBehaviour:
   chocolateIcon: {fileID: 21300000, guid: d1a86773b3db9d54c8a22ff77cb651fc, type: 3}
   sfxMixer: {fileID: 24100000, guid: af3b66b11444e4a42b96b7d31c077263, type: 2}
   levelCompleteSound: []
+  steamManager: {fileID: 1390926617}
 --- !u!1001 &1690399932
 PrefabInstance:
   m_ObjectHideFlags: 0
